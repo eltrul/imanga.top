@@ -15,7 +15,7 @@ Request id:
 
 
 route.post("/authorize", function(req, res) {
-    let requestId = req.id;
+    let requestId = req.body.id;
     if(requestId == 1) {
         route.send("Register");
         return;
