@@ -1,0 +1,16 @@
+{
+  "name": "imanga backend",
+  "version": "1.0.0",
+  "author": "Dino Sakura", 
+  "scripts": {
+    "dev": "node index"
+  },
+  "dependencies": 
+  {
+    "express": "*", 
+    "express-session": "*", 
+    "memorystore": "*", 
+    "body-parser": "*", 
+    "mongoose": "*"
+  }
+}
