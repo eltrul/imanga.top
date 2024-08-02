@@ -20,13 +20,25 @@ module.exports = class userFunction
 
             async function update(data) 
             {
-                var parsed_data = [];
+                var parsed_data = [this.user.id];
                 var cache = [];
                 Object.keys(data).forEach(key => {
                     parsed_data.push(key) ;
                     cache.push(data[key]);
                 });
                 parsed_data.concat(cache); 
-                this.db.query(mys
-            }
+
+                var wtfamidoing = ""; 
+                for (i=0, i < parsed_data.length/2, i++) 
+ 
+
+                     {     
+                     i2 = (i == 0) ? "" : " ";  
+                     i3 = i < parsed_data.length/2 ? "," : "";
+                     wtfamidoing = wtfamidoing + i2 + "? = ?" + i3
+                }
+               
+
+                return await this.db.query(`update users where id = ? set ${wtfamidoing}`, parsed_data); 
+            } 
         }
