@@ -39,12 +39,12 @@ log(chalk.yellow("[+] Initalizing Routes"));
 module.exports = function(db) 
 	{
 		fs.readDirSync(__dirname).forEach(name => {
-			log(chalk.yellow(`[+] Initalizing: ${name});
+			log(chalk.yellow(`[+] Initalizing: ${name}`);
 		});
         try 
 		{ 
             definiitation = `/${name}`;
-            app.use(require("."+definitation), definitation); 
+            app.use(require("."+definitation)(db), definitation); 
 		} 
         catch(err) 
 		{ 
