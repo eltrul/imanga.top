@@ -7,10 +7,11 @@
   },
   "dependencies": 
   {
-    "express": "*", 
-    "express-session": "*", 
-    "memorystore": "*", 
-    "body-parser": "*", 
-    "mongoose": "*"
+    "express": "^4.19.2", 
+    "express-session": "^1.18.0", 
+    "memorystore": "^1.6.7", 
+    "body-parser": "^1.20.2", 
+    "mongoose": "^8.5.1",
+    "chalk": "^4.1.2"
   }
 }
