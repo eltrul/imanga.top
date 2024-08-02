@@ -36,7 +36,7 @@ const log = console.log;
 
 log(chalk.yellow("[+] Initalizing Routes")); 
 
-module.exports = function(db) 
+module.exports = function(user) 
 	{
 		fs.readDirSync(__dirname).forEach(name => {
 			log(chalk.yellow(`[+] Initalizing: ${name}`);
@@ -44,7 +44,7 @@ module.exports = function(db)
         try 
 		{ 
             definiitation = `/${name}`;
-            app.use(require("."+definitation)(db), definitation); 
+            app.use(require("."+definitation)(user), definitation); 
 		} 
         catch(err) 
 		{ 
