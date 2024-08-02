@@ -11,6 +11,7 @@ class FileManager
     __construct(fileName) 
     {
         this.name = fileName; 
+        this.read();
     }
 
     function getFullPath() 
@@ -41,16 +42,29 @@ class FileManager
         }
     }
 
-    function write(content) 
+    function replace(content) 
     {
         fs.writeFile(this.getFullPath(), content); 
-
+        return this;
     }
 
-    function replace(content) 
+    function write(content) 
+    {
+        this.replace(this.content + content);
+        return this;
+    }
+
+    function writeAsJson(content) 
+    {
+        this.replace(JSON.stringify(content)); 
+        return this; 
+    }
 }
+
 
 function result.readFile(filename)
 {
-    return fs
-}
+    return new FileManager(filename);
+} 
+
+module.exports = result;
