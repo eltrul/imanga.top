@@ -1,10 +1,16 @@
 const route = require("express").Router();
 const mysql = require("mysql");
 
-route.use(bodyParser.json());
-route.use(bodyParser.urlencoded({
-    extended: true
-}));
+// Connect to mysql.
+const conn = mysql.createConnection({
+    host: "mysql-368dfd1c-duyvipka2008-2026.e.aivencloud.com",
+    port: 25983,
+    user: "avnadmin",
+    password: "AVNS_5M7T-PNu1r1STRbyXoA",
+    database: "defaultdb"
+});
+conn.connect();
+conn.query("CREATE TABLE IF NOT EXISTS user(id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(50) NOT NULL, password VARCHAR(50) NOT NULL, email VARCHAR(80) NOT NULL)");
 
 // Connect to mysql.
 const conn = mysql.createConnection({
@@ -49,3 +55,9 @@ route.post("/authorize", function(req, res) {
         route.send(2);
     });
 });
+<<<<<<< HEAD
+
+module.exports = route;
+=======
+
+>>>>>>> d8f11b5e737c85dd4713996d1a78cb88e9f65338
