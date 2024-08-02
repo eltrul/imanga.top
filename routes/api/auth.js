@@ -55,9 +55,5 @@ route.post("/authorize", function(req, res) {
         route.send(2);
     });
 });
-<<<<<<< HEAD
 
 module.exports = route;
-=======
-
->>>>>>> d8f11b5e737c85dd4713996d1a78cb88e9f65338
