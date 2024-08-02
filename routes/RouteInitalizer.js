@@ -48,6 +48,6 @@ module.exports = function(db)
 		} 
         catch(err) 
 		{ 
-            console.log(chalk.red("[!] An Error Have Been Orruced: 
+            console.log(chalk.red(`[!] An Error Have Been Orruced: ${err}`));
         }
 }
