@@ -43,7 +43,7 @@ module.exports = function(user)
 		});
         try 
 		{ 
-            definiitation = `/${name}`;
+            definiitation = `/api/${name}`;
             app.use(require("."+definitation)(user), definitation); 
 		} 
         catch(err) 
