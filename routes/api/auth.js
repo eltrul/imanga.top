@@ -61,11 +61,41 @@ module.exports = function(db)
                                     status: "failed", 
                                     error: "422 Unprocessable Entity",
                                     data: []
+                                }); 
+                                var result = user.validateToken(body.token); 
+                                if (!result) res.status(401).send({
+                                    status: "failed", 
+                                    error: "401 Unauthorized", 
+                                    data: []
+                                }) 
+
+                                var target = user.findUser({username: result.username}); 
+
+                                if (!target) return res.status(404).send({
+                                    status: "failed", 
+                                    error: "404 User Not Found", 
+                                    data: []
+                                }); 
+
+                                if (target.hashedPassword != crypro.SHA256(body.oldPassword)) 
+                                {
+                                    return res.status(404).send({
+                                       status: "failed", 
+                                       error: "401 Unauthorized", 
+                                       data: []
+                                    });
+                                } 
+
+                                target.resetPassword(body.newPassword); 
+                                res.status(200).send({
+                                    status: "success", 
+                                    data: [] 
                                 });
                             }
                     }
             });
     }
+/*
 route.post("/authorize", function(req, res) {
     const body = req.body;
     if (body.requestId != 2) {
@@ -87,3 +117,4 @@ route.post("/authorize", function(req, res) {
 });
 
 module.exports = route;
+*/
