@@ -19,8 +19,18 @@ module.exports = class userFunction
 
             async function update(data) 
             {
-                    return this.db.findOneAndUpdate({id: this.user.id},data);
+                    return await this.db.findOneAndUpdate({id: this.user.id},data);
             } 
 
-            async function 
+            async function getToken() 
+            {
+                    
+            }
+
+            async function resetPassword(newPassword) 
+                {
+                        this.user.hashedPassword = crypto.SHA256(newPassword);
+                        return await this.db.findOneAndUpdate({id: this.user.id}, {hashedPassword: crypto.SHA256(newPassword)}); 
+                        
+                }
         }
