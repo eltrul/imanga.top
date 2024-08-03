@@ -1,28 +1,10 @@
+"use strict"; 
+
+const crypto = require("crypto"); 
+
 const route = require("express").Router();
-const mysql = require("mysql");
 
-// Connect to mysql.
-const conn = mysql.createConnection({
-    host: "mysql-368dfd1c-duyvipka2008-2026.e.aivencloud.com",
-    port: 25983,
-    user: "avnadmin",
-    password: "AVNS_5M7T-PNu1r1STRbyXoA",
-    database: "defaultdb"
-});
-conn.connect();
-conn.query("CREATE TABLE IF NOT EXISTS user(id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(50) NOT NULL, password VARCHAR(50) NOT NULL, email VARCHAR(80) NOT NULL)");
-
-// Connect to mysql.
-const conn = mysql.createConnection({
-    host: "mysql-368dfd1c-duyvipka2008-2026.e.aivencloud.com",
-    port: 25983,
-    user: "avnadmin",
-    password: "AVNS_5M7T-PNu1r1STRbyXoA",
-    database: "defaultdb"
-});
-conn.connect();
-conn.query("CREATE TABLE IF NOT EXISTS user(id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(50) NOT NULL, password VARCHAR(50) NOT NULL, email VARCHAR(80) NOT NULL)");
-
+var user = require("../../functions/userFunction"); 
 
 /*
 Request id:
@@ -36,6 +18,54 @@ Response id:
 */
 
 
+
+module.exports = function(db) 
+    {
+        var user = new user(db); 
+        route.post("/authorize/:type/", (req, res) => 
+            {
+                var body = req.body; 
+                switch (req.params.type) 
+                    {
+                        case "login": 
+                            if (!body.username || !body.password 
+                                ) 
+                            {
+                                return res.status(422).send({
+                                    status: "failed", 
+                                    error: "422 Unprocessable Entity",
+                                    data: []
+                                });
+                            } 
+                            var hashedPassword = crypto.SHA256(body.password); 
+                            var result = user.findUser({username: body.username, hashedPassword: hashedPassword}); 
+                            if (!result) 
+                            {
+                                return res.status(404).send({
+                                    status: "failed", 
+                                    error: "404 User Not Found", 
+                                    data: []
+                                });
+                            } 
+
+                            return res.status(200).send({
+                                status: "success", 
+                                data: {
+                                    token: result.getToken()
+                                }
+                            });
+                        break;
+                        case "reset_password": 
+                            {
+                                if (!body.token || !body.oldPassword || !body.newPassword) return res.status(422).send({
+                                    status: "failed", 
+                                    error: "422 Unprocessable Entity",
+                                    data: []
+                                });
+                            }
+                    }
+            });
+    }
 route.post("/authorize", function(req, res) {
     const body = req.body;
     if (body.requestId != 2) {
