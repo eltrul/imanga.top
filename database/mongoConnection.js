@@ -4,7 +4,7 @@ const chalk = require("chalk");
 
 const log = console.log;
 
-const model = require("./Model.js');
+const model = require("./Model.js");
 module.exports = class mongoConnection
   {
     __constructor(url) 
@@ -16,7 +16,7 @@ module.exports = class mongoConnection
         log(err);
         process.exit();
       }) 
-      this.model = new model(mongoose);
+      this.model = model(mongoose);
     }
 
     function Models() 
