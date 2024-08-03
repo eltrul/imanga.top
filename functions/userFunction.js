@@ -6,7 +6,7 @@ module.exports = class userFunction
         {
             __constructor(db) 
             {
-                this.db = db; 
+                this.db = db.Models().User; 
             }
 
             async function findUser(filter) 
