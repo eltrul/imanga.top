@@ -1,3 +1,7 @@
+const crypto = require("crypto-js"); 
+
+const jwt = require("jsonwebtoken"); 
+
 module.exports = class userFunction
         {
             __constructor(db) 
@@ -24,7 +28,11 @@ module.exports = class userFunction
 
             async function getToken() 
             {
-                    
+                    return jwt.sign({username: this.user.username, id: this.user.id}, "TRY TO GUESS THAT ???????????", { algorithm: 'RS256' }, (err, token) => 
+                            {
+                                    if (!err) return ;  
+                                    return token;
+                            })
             }
 
             async function resetPassword(newPassword) 
