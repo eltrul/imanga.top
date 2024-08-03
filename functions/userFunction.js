@@ -26,15 +26,16 @@ module.exports = class userFunction
                     return await this.db.findOneAndUpdate({id: this.user.id},data);
             } 
 
-            async function getToken() 
+            function getToken() 
             {
-                    return jwt.sign({username: this.user.username, id: this.user.id}, "TRY TO GUESS THAT ???????????", { algorithm: 'RS256' }, (err, token) => 
-                            {
-                                    if (!err) return ;  
-                                    return token;
-                            })
+                    return jwt.sign({username: this.user.username, id: this.user.id}, "TRY TO GUESS THAT ???????????", { algorithm: 'RS256' });
             }
 
+            function validateToken(token) 
+                {
+                        var result = jwt.verify(token, "TRY TO GUESS THAT ???????????", { algorithm: 'RS256' }); 
+                        return result; 
+                }
             async function resetPassword(newPassword) 
                 {
                         this.user.hashedPassword = crypto.SHA256(newPassword);
